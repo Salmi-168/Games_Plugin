@@ -1,0 +1,11 @@
+name: Games
+version: 1.0
+api-version: 1.18
+main: de.salmi.Games.Main
+description: Test Beschreibung
+author: Salmi
+website: salmiserver.ddns.net
+commands:
+   game:
+     description: Waehlt das Spiel aus das du spielen moechtest
+     usage: "/game <game>"
