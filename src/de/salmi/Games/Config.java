@@ -6,19 +6,19 @@ import java.util.List;
 
 public class Config {
 
-	public static String pluginName = "§6Games§8> ";
+	public static String pluginName = "ï¿½6Gamesï¿½8> ";
 	
-	public static String invalidInput = "§cUngültige Eingabe -> /game <Gamemode> <Player>";
+	public static String invalidInput = "ï¿½cUngï¿½ltige Eingabe -> /game <Gamemode> <Player>";
 	
-	public static String wrongEnvironmentMessage = pluginName + "§cDu kannst diesen Befehl nur als Spieler ausfuehren!";
+	public static String wrongEnvironmentMessage = pluginName + "ï¿½cDu kannst diesen Befehl nur als Spieler ausfuehren!";
 	
-	public static String noPermissionMessage = pluginName + "§cDazu hast du keine Berechtigung!";
+	public static String noPermissionMessage = pluginName + "ï¿½cDazu hast du keine Berechtigung!";
 	
 	
 	
 	
 /* --------- GameList --------- */
-	
+	// TODO: Hier lieber mit Konstanten arbeiten
 	public static List<String> gameList = new ArrayList<String>(Arrays.asList(
 			"TickTackToe"
 	));

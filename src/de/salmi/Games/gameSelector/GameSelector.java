@@ -19,8 +19,12 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class GameSelector implements CommandExecutor, TabCompleter{
 
+	// TODO: Kommentierung
+	
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+		
+		// TODO: Zu lange Methoden besser in kleine Untermethoden/Unterfunktionen aufteilen.
 		
 		if(args.length == 0 || args.length >= 3) {
 			sender.sendMessage("");
@@ -36,10 +40,12 @@ public class GameSelector implements CommandExecutor, TabCompleter{
 		Player p = (Player)sender;
 		
 		if(args[0].equals("decline")) {
+			// TODO: Falsches zeichen
 			Bukkit.getConsoleSender().sendMessage("$cTEST");
 			if(args[1].equals("ttt")) {
-				List<TickTackToeGame> aGL = Main.getactiveGameList();
-				for(int i = 0; i < Main.getactiveGameList().size(); i++) {
+				List<TickTackToeGame> aGL = Main.getActiveGameList();
+				for(int i = 0; i < Main.getActiveGameList().size(); i++) {
+					// TODO: Falsches zeichen
 					Bukkit.getConsoleSender().sendMessage("$cMoin");
 					if(p.getUniqueId().equals(aGL.get(i).getPlayer2().getUniqueId())) {
 						aGL.remove(i);
@@ -52,7 +58,7 @@ public class GameSelector implements CommandExecutor, TabCompleter{
 		// if player accepts the match invite
 		if(args[0].equals("accept")) {
 			if(args[1].equals("ttt")) {
-				for(TickTackToeGame game : Main.getactiveGameList()) {
+				for(TickTackToeGame game : Main.getActiveGameList()) {
 					if(p.getUniqueId().equals(game.getPlayer2().getUniqueId())) {
 						game.startGame();
 						return true;
@@ -64,6 +70,7 @@ public class GameSelector implements CommandExecutor, TabCompleter{
 		}
 		
 		// Select game 0 (TickTackToe)
+		// TODO: Hier lieber mit Konstanten arbeiten, nicht mit Listen.
 		if(args[0].equals(Config.gameList.get(0))) {
 			// Here it is checked if he wants to play against himself
 			if(args[1].equals(p.getName())) {
@@ -72,7 +79,10 @@ public class GameSelector implements CommandExecutor, TabCompleter{
 			}
 			
 			// Check if player is online
-			if(checkIfPlayerOnline(args[1])) { 
+			if(checkIfPlayerOnline(args[1])) {
+				
+				// TODO: Kommentierung
+				
 				Player opp = Bukkit.getPlayer(args[1]);
 				
 				TextComponent accept = new TextComponent("Annehemen");
@@ -93,17 +103,18 @@ public class GameSelector implements CommandExecutor, TabCompleter{
 				opp.spigot().sendMessage(msg);
 				p.sendMessage("Du hast " + ChatColor.AQUA + Bukkit.getPlayer(opp.getUniqueId()).getName() + ChatColor.WHITE + " zu einem " + ChatColor.GOLD + Config.gameList.get(0) + ChatColor.WHITE + " Spiel Eingeladen!");
 				
-				Main.getactiveGameList().add(new TickTackToeGame(p, opp));
+				Main.getActiveGameList().add(new TickTackToeGame(p, opp));
 				
-				Bukkit.getConsoleSender().sendMessage("Size: " + Main.getactiveGameList().size());
+				Bukkit.getConsoleSender().sendMessage("Size: " + Main.getActiveGameList().size());
 				
 				return true;
 			}
+			// TODO: Was ist, wenn der Spieler nicht online ist?
 		}
 		
 		
 		
-		p.sendMessage("§cDieses Spiel gibt es nicht!");
+		p.sendMessage("ï¿½cDieses Spiel gibt es nicht!");
 		return true;
 	}
 	
