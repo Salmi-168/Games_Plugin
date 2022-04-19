@@ -108,6 +108,8 @@ public class GameSelector implements CommandExecutor, TabCompleter{
 				Bukkit.getConsoleSender().sendMessage("Size: " + Main.getActiveGameList().size());
 				
 				return true;
+			} else {
+				p.sendMessage("Der Spieler ist nicht Online!");
 			}
 			// TODO: Was ist, wenn der Spieler nicht online ist?
 		}

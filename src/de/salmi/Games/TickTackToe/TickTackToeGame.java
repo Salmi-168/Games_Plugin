@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import de.salmi.Games.Main;
+import de.salmi.Games.TickTackToe.util.CheckForWin;
 import net.md_5.bungee.api.ChatColor;
 
 public class TickTackToeGame implements Listener{
@@ -39,31 +40,41 @@ public class TickTackToeGame implements Listener{
 	private Inventory gameInv;
 	private int whoWin;
 	
+	// creating Object with both players
 	public TickTackToeGame(Player p1, Player p2) {
 		this.p1 = p1;
 		this.p2 = p2;
 	}
 
-	// TODO: Kommentierung
+	// if player 2 accepts the invite, this functin will be called
 	public void startGame() {
+		// the EventListeners will be registered
 		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 		
+		// Initialise Inventory Object with 45 slots
 		gameInv = Bukkit.createInventory(null, 45, p1.getName() + " vs. " + p2.getName());
 		
+		// prepare gameInv inventory with 
 		prepareInventory();
 		
+		// open gameinventory for both players
 		p1.openInventory(gameInv);
 		p2.openInventory(gameInv);
 	}
 	
 	@EventHandler
 	public void onInventoryClose(InventoryCloseEvent e) {
-		// TODO: Kommentierung
+		// if less then one player views the gameInv -> delete game
 		if(gameInv.getViewers().size() <= 1) {
 			
+			// unregister Events from this Object
 			HandlerList.unregisterAll(this);
 			
+			// delets game from gameList
 			List<TickTackToeGame> aGL = Main.getActiveGameList();
+			
+			// goes through every game in the GameList and clear
+			// only the games where both players are in to delete redundant games
 			for(int i = 0; i < Main.getActiveGameList().size(); i++) {
 				if(e.getPlayer().getUniqueId().equals(p1.getUniqueId()) || e.getPlayer().getUniqueId().equals(p2.getUniqueId())) {
 					aGL.remove(i);
@@ -75,18 +86,20 @@ public class TickTackToeGame implements Listener{
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		// TODO: Kommentierung (Auch durch den code-durch). Zb. bei //TODO: Bsp. 1
 		
+		// abort if clicked Inventory not ist gameInventory
 		if(!e.getInventory().equals(gameInv)) {
-			Bukkit.getConsoleSender().sendMessage("Not the Same");
+			//Bukkit.getConsoleSender().sendMessage("Not the Same");
 			return;
 		}
-																// wenn nicht dass Angeklickt wurde
+		
+		// abort if no or NOT LIGHT_GRAY_STAINED_GLASS_PANE (TTT_field) is clicked
 		if(e.getCurrentItem() == null || e.getCurrentItem().getType() != Material.LIGHT_GRAY_STAINED_GLASS_PANE) {
 			e.setCancelled(true);
 			return;
 		}
 		
+		// if no Player clicks into the Inventory
 		if(!(e.getWhoClicked() instanceof Player)) {
 			e.getWhoClicked().sendMessage(ChatColor.RED + "Du bist kein Teilnehmer des Spiels!");
 			e.setCancelled(true);
@@ -95,10 +108,7 @@ public class TickTackToeGame implements Listener{
 		
 		Player p = (Player)e.getWhoClicked();
 		
-		// TODO: Bsp. 1
-		
 		// Checks if the game has already ended or if an action can be performed
-		
 		if(whoWin == 1) {
 			if(p.getName().equals(p2.getName())) {
 				p2.sendMessage(ChatColor.AQUA + p1.getName() + ChatColor.WHITE + " hat das Spiel bereits Gewonnen!");
@@ -140,7 +150,8 @@ public class TickTackToeGame implements Listener{
 		}
 		
 		// Updates the win-status
-		whoWin = checkForWin();
+		
+		whoWin = CheckForWin.checkForWin(gameInv, TTT_GRID_START_POS);
 		
 		if(whoWin == 1) {
 			Bukkit.broadcastMessage("Der Spieler " + ChatColor.AQUA + p1.getName() + ChatColor.WHITE + " hat das TickTackToe Match gegen " + ChatColor.AQUA + p2.getName() + ChatColor.WHITE + " Gewonnen!");
@@ -155,20 +166,17 @@ public class TickTackToeGame implements Listener{
 			return;
 		}
 	}
-	
-	// TODO: Kommentierung
-	private void spawnFireworks(Player winner) {
+
+	/**
+	 * spawn fireworks with random effects at players location
+	 * 
+	 */
+	private void spawnFireworks(Player player) {
+		Random r = new Random();
+		
 		for(int i = 0; i < 5; i++) {
-			Firework fw = (Firework) winner.getWorld().spawnEntity(winner.getLocation(), EntityType.FIREWORK);
+			Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
 			FireworkMeta fwm = fw.getFireworkMeta();
-			
-			// TODO: Für jedes Feuerwerk einen neues Random-Objekt zu erstellen ist Ressourcenverschwendung. Kannst du am besten sowieso global erstellen.
-	        Random r = new Random();
-	        
-	        //Get random type
-	        
-	        // TODO: Hab hier mal den code etwas verschönert und verkürzt.
-	        // Man kann bei einer enum direkt über den Index ein typ bekommen
 	        
 	        // Gets a random type
 	        Type randType = Type.values()[r.nextInt(Type.values().length)];
@@ -177,7 +185,7 @@ public class TickTackToeGame implements Listener{
 	        Color c1 = Color.fromRGB(r.nextInt(0xFFFFFF));
 	        Color c2 = Color.fromRGB(r.nextInt(0xFFFFFF));
 	        
-	        //Create effect
+	        //Create random effects
 	        FireworkEffect effect = FireworkEffect.builder()
 	        		.flicker(r.nextBoolean())
 	        		.withColor(c1)
@@ -190,15 +198,14 @@ public class TickTackToeGame implements Listener{
 	        fwm.addEffect(effect);
 	        
 	        //generate fly distance
-	        int rp = r.nextInt(2) + 1;
-	        fwm.setPower(rp);
+	        fwm.setPower(r.nextInt(2) + 1);
 	        
 	        //apply metadata on rocket
 	        fw.setFireworkMeta(fwm);
 		}
 	}
-	
-	// TODO: Kommentierung
+
+	// Prepare the TTT_field with the right items at each slot
 	private void prepareInventory() {
 		for(int i = 0; i < gameInv.getSize(); i++) {
 						
@@ -207,130 +214,29 @@ public class TickTackToeGame implements Listener{
 				continue;
 			}
 			
-			// TODO: Hier lieber ein switch-case benutzen, damit kann ggf. ein Lookup-table generiert werden durch java.
-			
-			if(i == 15) {
+			switch (i) {
+			case 15:
 				gameInv.setItem(i,createItem(Material.LIME_DYE, p1.getName() + " ist dran!"));
 				continue;
-			}
-			
-			if(i == 16) {
+				
+			case 16:
 				gameInv.setItem(i,createItem(Material.GRAY_DYE, "LOL der muss warten!"));
 				continue;
-			}
-
-			if(i == 24) {
+				
+			case 24:
 				gameInv.setItem(i,createItem(Material.BLUE_WOOL, p1.getName()));
 				continue;
-			}
-			
-			if(i == 25) {
+				
+			case 25:
 				gameInv.setItem(i,createItem(Material.RED_WOOL, p2.getName()));
 				continue;
 			}
-			
+			// standard item
 			gameInv.setItem(i,createItem(Material.GRAY_STAINED_GLASS_PANE, ""));
 		}
 	}
 	
-	
-	/**
-	 * Returns the real inventory-slot index for the given ttt slot index (0-8).
-	 * 
-	 * !NOTE! this expects values for x and y between 0 and 2 (3x3 grid)
-	 */
-	private int getSlotFromTTTIndex(int slot) {
-		// Calculates the x and y position
-		return this.getSlotFromTTTIndex(slot%3, slot/3);
-	}
-	
-	/**
-	 * Returns the real inventory-slot index for the given ttt x and y coordinate.
-	 * 
-	 * Eg. x:0 y:0 would return 10 as the grid starts at 10
-	 * 	   x:2 y:2 would return 30 as that is the last grid index for the ttt grid.
-	 * 
-	 * !NOTE! this expects values for x and y between 0 and 2 (3x3 grid)
-	 */
-	private int getSlotFromTTTIndex(int x,int y) {
-		return (TTT_GRID_START_POS+x)+9*y;
-	}
-	
-	
-	
-	/**
-	 * Checks if the given slot at the given index is checked in favor of the given player
-	 * @param slot the index of the slot to check for
-	 * @param isPlayerOne if the player one is used or false if player two should be checked
-	 * @return true if the slot is checked in favor of the player or false if it's not
-	 */
-	private boolean isSlotForPlayer(int slot,boolean isPlayerOne) {
-		return this.gameInv.getItem(this.getSlotFromTTTIndex(slot)).getType().equals(isPlayerOne ? Material.BLUE_WOOL : Material.RED_WOOL);
-	}
-	
-	/**
-	 * Takes in a player and checks if the grid shows that that player has won
-	 * @param isPlayerOne if player on should be use. False if player two should be used.
-	 * @return true if the given player has won.
-	 */
-	private boolean hasPlayerWon(boolean isPlayerOne) {
-		// Checks horizontal lines
-		for(int hId = 0; hId < 3; hId++)
-	        if(this.isSlotForPlayer(hId*3,isPlayerOne) && this.isSlotForPlayer(hId*3+1,isPlayerOne) && this.isSlotForPlayer(hId*3+2,isPlayerOne))
-	            return true;
-
-	    // Checks vertical lines
-		for(int vId = 0; vId < 3; vId++)
-	        if(this.isSlotForPlayer(vId,isPlayerOne) && this.isSlotForPlayer(vId+3,isPlayerOne) && this.isSlotForPlayer(vId+6,isPlayerOne))
-	            return true;
-
-	    // Checks diagonals
-
-	    // Right top to left bottom
-	    if(this.isSlotForPlayer(0,isPlayerOne) && this.isSlotForPlayer(4,isPlayerOne) && this.isSlotForPlayer(8,isPlayerOne))
-	        return true;
-
-	    // Right bottom to left top
-	    if(this.isSlotForPlayer(6,isPlayerOne) && this.isSlotForPlayer(4,isPlayerOne) && this.isSlotForPlayer(2,isPlayerOne))
-	        return true;
-
-	    return false;
-	}
-	
-	
-	
-	// 0 1 2
-	// 3 4 5
-	// 6 7 8	
-	
-	// return 0: nothing happens
-	// return 1: player 1 win
-	// return 2: player 2 win
-	// return 3: nobody win
-	private int checkForWin() {
-
-		// Checks player one
-	    if(this.hasPlayerWon(true))
-	        return 1;
-
-	    // Checks player two
-	    if(this.hasPlayerWon(false))
-	        return 2;
-
-	    // Checks for a draw
-	    boolean isDraw = true;
-	    
-	    // Searches for a light-gray-glass (Sign that there are still spaces to fill left)
-	    for(int index = 0;index < 9; index++)
-	        if(this.gameInv.getItem(this.getSlotFromTTTIndex(index)).getType().equals(Material.LIGHT_GRAY_STAINED_GLASS_PANE)) {
-	        	isDraw = false;
-	        	break;
-	        }
-
-	    return isDraw ? 3 : 0;
-	}
-	
-	// TODO: Kommentierung
+	// creates an item from the given material and changes the name to the given name
 	private ItemStack createItem(Material material, String name) {
 		ItemStack item = new ItemStack(material, 1);
 		ItemMeta meta = item.getItemMeta();
@@ -342,10 +248,12 @@ public class TickTackToeGame implements Listener{
 		return item;
 	}
 	
+	// gets Player 1 from current game
 	public Player getPlayer1() {
 		return p1;
 	}
 	
+	// gets Player 2 from current game
 	public Player getPlayer2() {
 		return p2;
 	}
