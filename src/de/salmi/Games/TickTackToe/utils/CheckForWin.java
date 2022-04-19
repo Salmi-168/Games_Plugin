@@ -1,4 +1,4 @@
-package de.salmi.Games.TickTackToe.util;
+package de.salmi.Games.TickTackToe.utils;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;

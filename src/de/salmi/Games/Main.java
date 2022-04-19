@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.salmi.Games.GameSelector.GameSelector;
 import de.salmi.Games.TickTackToe.TickTackToeGame;
-import de.salmi.Games.gameSelector.GameSelector;
 
 public class Main extends JavaPlugin{
 	

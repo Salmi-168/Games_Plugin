@@ -22,7 +22,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import de.salmi.Games.Main;
-import de.salmi.Games.TickTackToe.util.CheckForWin;
+import de.salmi.Games.TickTackToe.utils.CheckForWin;
 import net.md_5.bungee.api.ChatColor;
 
 public class TickTackToeGame implements Listener{
