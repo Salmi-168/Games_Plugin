@@ -15,6 +15,8 @@ public class Main extends JavaPlugin{
 	 * Geänderter code wurde mit einem TODO gekennzeichnet. Weiterhin hatte ich gerade keine Möglichkeit diesen zu Kompilieren und somit aktiv zu testen.
 	 * Ggf. muss hier noch bischen debugging betrieben werden.
 	 * 
+	 * @Note: hat alles funktioniert
+	 * 
 	 * Folgendes sind einige weitere Anmerkungen:
 	 * 
  		- Im InvClickevent würde ich die "Wer ist dran"-Logik dahingehen überarbeiten, dass du einen bool global in der Klasse einsetzt und nicht über ein Item im Inventar einen Namens-String-vergleich machst.
@@ -25,10 +27,8 @@ public class Main extends JavaPlugin{
 		
 		- Packagenamen immer klein schreiben
 		
-		- Ich würde einige Methoden aus der TickTackToeGame-Klasse in eine eigene Utility-Klasse auslagern, damit die Klasse nicht zu groß und unübersichtlich wird.
+		@Done - Ich würde einige Methoden aus der TickTackToeGame-Klasse in eine eigene Utility-Klasse auslagern, damit die Klasse nicht zu groß und unübersichtlich wird.
 	 */
-	
-	
 	
 	// USING spigot-api-1.18.2-R0.1-20220408.234706-30-shaded.jar
 
