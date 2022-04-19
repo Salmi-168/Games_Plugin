@@ -17,7 +17,7 @@ public class Main extends JavaPlugin{
 	   
 	   @Note: hat alles funktioniert
 	   
-	    Folgendes sind einige weitere Anmerkungen:
+	   Folgendes sind einige weitere Anmerkungen:
 	  
  		- Im InvClickevent würde ich die "Wer ist dran"-Logik dahingehen überarbeiten, dass du einen bool global in der Klasse einsetzt und nicht über ein Item im Inventar einen Namens-String-vergleich machst.
 		  Ein Problem ist, dass ein Stringvergleich immer langsam ist und auch vom Programmieren her fehleranfällig ist (Verschrieben oder Rechtschreibfehler).
