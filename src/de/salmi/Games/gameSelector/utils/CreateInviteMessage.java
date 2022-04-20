@@ -3,6 +3,7 @@ package de.salmi.Games.GameSelector.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import de.salmi.Games.Config;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
@@ -11,8 +12,8 @@ public class CreateInviteMessage {
 	
 	public static TextComponent createInviteMessage(Player p) {
 		// creates TextComponet Objects for invite message
-		TextComponent accept = new TextComponent("Annehemen");
-		TextComponent decline = new TextComponent("Ablehnen");
+		TextComponent accept = new TextComponent(Config.inviteMessageAcceptText);
+		TextComponent decline = new TextComponent(Config.inviteMessageDeclineText);
 
 		// set color for both TextComponents
 		accept.setColor(net.md_5.bungee.api.ChatColor.GREEN);

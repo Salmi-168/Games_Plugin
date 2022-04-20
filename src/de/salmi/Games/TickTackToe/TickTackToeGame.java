@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
@@ -21,9 +22,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import de.salmi.Games.Config;
 import de.salmi.Games.Main;
 import de.salmi.Games.TickTackToe.utils.CheckForWin;
-import net.md_5.bungee.api.ChatColor;
 
 public class TickTackToeGame implements Listener{
 	
@@ -70,7 +71,7 @@ public class TickTackToeGame implements Listener{
 			// unregister Events from this Object
 			HandlerList.unregisterAll(this);
 			
-			// delets game from gameList
+			// gets active games from gameList
 			List<TickTackToeGame> aGL = Main.getActiveGameList();
 			
 			// goes through every game in the GameList and clear
@@ -131,19 +132,19 @@ public class TickTackToeGame implements Listener{
 		// TODO: Ich weis nicht wie ich das gut kürzen kann, weil das ja verschiedene Felder sind in denen die Items
 		// 		 drin sind und in jeweils andere wieder rein müssen
 		
-		if((gameInv.getItem(15).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
-			p.sendMessage(ChatColor.RED + "Du bist nicht an der Reihe!");
+		if((gameInv.getItem(15).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
+			p.sendMessage();
 			e.setCancelled(true);
 			return;
-		} else if(!gameInv.getItem(15).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) {
+		} else if(!gameInv.getItem(15).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.BLUE_WOOL, " "));
-			gameInv.setItem(15,createItem(Material.GRAY_DYE, "Du bist nicht am Zug!"));
+			gameInv.setItem(15,createItem(Material.GRAY_DYE, Config.notYourTurnText));
 			gameInv.setItem(16,createItem(Material.LIME_DYE, p2.getName() + " ist dran!"));
-		} else if(!gameInv.getItem(16).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName())) {
+		} else if(!gameInv.getItem(16).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.RED_WOOL, " "));
-			gameInv.setItem(16,createItem(Material.GRAY_DYE, "Du bist nicht am Zug!"));
+			gameInv.setItem(16,createItem(Material.GRAY_DYE, Config.notYourTurnText));
 			gameInv.setItem(15,createItem(Material.LIME_DYE, p1.getName() + " ist dran!"));
 		}
 		
@@ -202,12 +203,12 @@ public class TickTackToeGame implements Listener{
 		}
 	}
 
-	// Prepare the TTT_field with the right items at each slot
+	// Prepares the TTT_field with the right items at each slot
 	private void prepareInventory() {
 		for(int i = 0; i < gameInv.getSize(); i++) {
 						
 			if((i >= 10 && i <= 12) || (i >= 19 && i <= 21) || (i >= 28 && i <= 30)) {
-				gameInv.setItem(i,createItem(Material.LIGHT_GRAY_STAINED_GLASS_PANE, "Click me!"));
+				gameInv.setItem(i,createItem(Material.LIGHT_GRAY_STAINED_GLASS_PANE, Config.TTT_fieldText));
 				continue;
 			}
 			
@@ -217,7 +218,7 @@ public class TickTackToeGame implements Listener{
 				continue;
 				
 			case 16:
-				gameInv.setItem(i,createItem(Material.GRAY_DYE, "LOL der muss warten!"));
+				gameInv.setItem(i,createItem(Material.GRAY_DYE, Config.notYourTurnText));
 				continue;
 				
 			case 24:
