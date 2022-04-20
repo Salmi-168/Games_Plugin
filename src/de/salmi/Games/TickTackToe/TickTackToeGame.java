@@ -54,7 +54,7 @@ public class TickTackToeGame implements Listener{
 		// Initialise Inventory Object with 45 slots
 		gameInv = Bukkit.createInventory(null, 45, p1.getName() + " vs. " + p2.getName());
 		
-		// prepare gameInv inventory with 
+		// prepare gameInv inventory with the needed layout
 		prepareInventory();
 		
 		// open gameinventory for both players
@@ -78,7 +78,6 @@ public class TickTackToeGame implements Listener{
 			for(int i = 0; i < Main.getActiveGameList().size(); i++) {
 				if(e.getPlayer().getUniqueId().equals(p1.getUniqueId()) || e.getPlayer().getUniqueId().equals(p2.getUniqueId())) {
 					aGL.remove(i);
-
 				}
 			}
 		}
@@ -86,7 +85,6 @@ public class TickTackToeGame implements Listener{
 	
 	@EventHandler
 	public void onInventoryClick(InventoryClickEvent e) {
-		
 		// abort if clicked Inventory not ist gameInventory
 		if(!e.getInventory().equals(gameInv)) {
 			//Bukkit.getConsoleSender().sendMessage("Not the Same");
@@ -127,25 +125,25 @@ public class TickTackToeGame implements Listener{
 			return;
 		}
 		
-		// TODO: Bsp. 1
-		
 		// Checks if the slot is valid and if so it's updated
 		
 		// TODO: Hier bischen zusammenfassen. Vorallem die unteren beiden Elemnte sind duplizierter code.
+		// TODO: Ich weis nicht wie ich das gut kürzen kann, weil das ja verschiedene Felder sind in denen die Items
+		// 		 drin sind und in jeweils andere wieder rein müssen
 		
-		if((gameInv.getItem(15).getItemMeta().getDisplayName().equals("LOL der muss warten!") && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getItemMeta().getDisplayName().equals("LOL der muss warten!") && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
+		if((gameInv.getItem(15).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
 			p.sendMessage(ChatColor.RED + "Du bist nicht an der Reihe!");
 			e.setCancelled(true);
 			return;
-		} else if(!gameInv.getItem(15).getItemMeta().getDisplayName().equals("LOL der muss warten!") && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) {
+		} else if(!gameInv.getItem(15).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.BLUE_WOOL, " "));
-			gameInv.setItem(15,createItem(Material.GRAY_DYE, "LOL der muss warten!"));
+			gameInv.setItem(15,createItem(Material.GRAY_DYE, "Du bist nicht am Zug!"));
 			gameInv.setItem(16,createItem(Material.LIME_DYE, p2.getName() + " ist dran!"));
-		} else if(!gameInv.getItem(16).getItemMeta().getDisplayName().equals("LOL der muss warten!") && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName())) {
+		} else if(!gameInv.getItem(16).getItemMeta().getDisplayName().equals("Du bist nicht am Zug!") && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.RED_WOOL, " "));
-			gameInv.setItem(16,createItem(Material.GRAY_DYE, "LOL der muss warten!"));
+			gameInv.setItem(16,createItem(Material.GRAY_DYE, "Du bist nicht am Zug!"));
 			gameInv.setItem(15,createItem(Material.LIME_DYE, p1.getName() + " ist dran!"));
 		}
 		
