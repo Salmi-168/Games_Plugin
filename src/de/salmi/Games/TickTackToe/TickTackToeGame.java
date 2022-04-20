@@ -167,7 +167,6 @@ public class TickTackToeGame implements Listener{
 
 	/**
 	 * spawn fireworks with random effects at players location
-	 * 
 	 */
 	private void spawnFireworks(Player player) {
 		Random r = new Random();
