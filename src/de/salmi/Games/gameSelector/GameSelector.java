@@ -41,16 +41,27 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 			// if player declines the match invite
 			if (args[1].equals("ttt")) {
 				// if it is TickTackToe related
-				List<TickTackToeGame> aGL = Main.getActiveGameList();
+				List<TickTackToeGame> aGL = Main.getTTTGameList();
 
 				// goes through every game in the GameList and clear
 				// only the games where player two is in to decline all TTT games
-				for (int i = 0; i < Main.getActiveGameList().size(); i++) {
+				for (int i = 0; i < Main.getTTTGameList().size(); i++) {
 					if (p.getUniqueId().equals(aGL.get(i).getPlayer2().getUniqueId())) {
 						aGL.remove(i);
 					}
 				}
 			}
+			
+			switch (args[1]) {
+			case "ttt":
+				
+				break;
+
+			default:
+				p.sendMessage("§cDieses Spiel gibt es nicht!");
+				return true;
+			}
+			
 			return true;
 		}
 
@@ -60,7 +71,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 			if (args[1].equals("ttt")) {
 				// goes through every game in the GameList and starts the
 				// first game where player two is in
-				for (TickTackToeGame game : Main.getActiveGameList()) {
+				for (TickTackToeGame game : Main.getTTTGameList()) {
 					if (p.getUniqueId().equals(game.getPlayer2().getUniqueId())) {
 						game.startGame();
 						return true;
@@ -93,7 +104,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 				p.sendMessage("Du hast " + ChatColor.AQUA + Bukkit.getPlayer(opp.getUniqueId()).getName() + ChatColor.WHITE + " zu einem " + ChatColor.GOLD + Config.gameList.get(0) + ChatColor.WHITE + " Spiel Eingeladen!");
 
 				// add the game to the game list
-				Main.getActiveGameList().add(new TickTackToeGame(p, opp));
+				Main.getTTTGameList().add(new TickTackToeGame(p, opp));
 
 				return true;
 			} else {
@@ -103,8 +114,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 			}
 		}
 
-		p.sendMessage("§cDieses Spiel gibt es nicht!");
-		return true;
+		return false;
 	}
 
 	@Override

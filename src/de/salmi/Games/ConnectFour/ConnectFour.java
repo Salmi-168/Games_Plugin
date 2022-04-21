@@ -1,8 +1,14 @@
 package de.salmi.Games.ConnectFour;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+
+import de.salmi.Games.Main;
 
 public class ConnectFour implements Listener{
 
@@ -10,7 +16,6 @@ public class ConnectFour implements Listener{
 	private Player p1;
 	@SuppressWarnings("unused")
 	private Player p2;
-	@SuppressWarnings("unused")
 	private Inventory gameInv;
 	@SuppressWarnings("unused")
 	private int whoWin;
@@ -21,9 +26,17 @@ public class ConnectFour implements Listener{
 	}
 	
 	public void startGame() {
-		
+		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 	}
 	
-	
+	@EventHandler
+	public void onInventoryClose(InventoryCloseEvent e) {
+		// if less then one player views the gameInv -> delete game
+		if(gameInv.getViewers().size() <= 1) {
+
+			// unregister Events from this Object
+			HandlerList.unregisterAll(this);
+		}
+	}
 	
 }

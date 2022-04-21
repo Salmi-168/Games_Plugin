@@ -31,11 +31,6 @@ public class TickTackToeGame implements Listener{
 	// Inventory-start position for the ttt-grid
 	private final int TTT_GRID_START_POS = 10;
 	
-	
-	// TODO: Benennung von sämtlichen Items bitte nochmal überarbeiten. So zeugs wie "LOL der muss warten" würde ich ungerne so auf den Server packen ;)
-	
-	// TODO: Kommentierung: Was ist was?
-	
 	private Player p1;
 	private Player p2;
 	private Inventory gameInv;
@@ -72,11 +67,11 @@ public class TickTackToeGame implements Listener{
 			HandlerList.unregisterAll(this);
 			
 			// gets active games from gameList
-			List<TickTackToeGame> aGL = Main.getActiveGameList();
+			List<TickTackToeGame> aGL = Main.getTTTGameList();
 			
 			// goes through every game in the GameList and clear
 			// only the games where both players are in to delete redundant games
-			for(int i = 0; i < Main.getActiveGameList().size(); i++) {
+			for(int i = 0; i < Main.getTTTGameList().size(); i++) {
 				if(e.getPlayer().getUniqueId().equals(p1.getUniqueId()) || e.getPlayer().getUniqueId().equals(p2.getUniqueId())) {
 					aGL.remove(i);
 				}

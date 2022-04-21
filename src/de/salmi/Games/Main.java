@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.salmi.Games.ConnectFour.ConnectFour;
 import de.salmi.Games.GameSelector.GameSelector;
 import de.salmi.Games.TickTackToe.TickTackToeGame;
 
@@ -34,6 +35,7 @@ public class Main extends JavaPlugin{
 
 	public static Main plugin;
 	public static List<TickTackToeGame> TTTGameList = new ArrayList<TickTackToeGame>();
+	public static List<ConnectFour> CFGameList = new ArrayList<ConnectFour>();
 	
 	@Override
 	public void onEnable() {
@@ -50,8 +52,12 @@ public class Main extends JavaPlugin{
 	public static Main getPlugin() {
 		return plugin;
 	}
-	
-	public static List<TickTackToeGame> getActiveGameList(){
+
+	public static List<TickTackToeGame> getTTTGameList(){
 		return TTTGameList;
+	}
+	
+	public static List<ConnectFour> getCFGameList(){
+		return CFGameList;
 	}
 }
