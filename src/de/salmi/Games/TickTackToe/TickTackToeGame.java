@@ -32,10 +32,7 @@ public class TickTackToeGame implements Listener{
 	private final int TTT_GRID_START_POS = 10;
 	
 	
-	// TODO: Benennung von sämtlichen Items bitte nochmal überarbeiten. So zeugs wie "LOL der muss warten" würde ich ungerne so auf den Server packen ;)
-	
-	// TODO: Kommentierung: Was ist was?
-	
+	// TODO: Kommentierung der unteren variablen: Was ist was? Speziell der Variable whoWin, weil diese nicht offensichtlich ist und hier als Flag genutzt wird. Was sagt welcher Wert aus?
 	private Player p1;
 	private Player p2;
 	private Inventory gameInv;
@@ -53,6 +50,7 @@ public class TickTackToeGame implements Listener{
 		Bukkit.getPluginManager().registerEvents(this, Main.getPlugin());
 		
 		// Initialise Inventory Object with 45 slots
+		// TODO: Nr.2
 		gameInv = Bukkit.createInventory(null, 45, p1.getName() + " vs. " + p2.getName());
 		
 		// prepare gameInv inventory with the needed layout
@@ -100,6 +98,7 @@ public class TickTackToeGame implements Listener{
 		
 		// if no Player clicks into the Inventory
 		if(!(e.getWhoClicked() instanceof Player)) {
+			// TODO: Nr.2
 			e.getWhoClicked().sendMessage(ChatColor.RED + "Du bist kein Teilnehmer des Spiels!");
 			e.setCancelled(true);
 			return;
@@ -110,17 +109,20 @@ public class TickTackToeGame implements Listener{
 		// Checks if the game has already ended or if an action can be performed
 		if(whoWin == 1) {
 			if(p.getName().equals(p2.getName())) {
+				// TODO: Nr.2
 				p2.sendMessage(ChatColor.AQUA + p1.getName() + ChatColor.WHITE + " hat das Spiel bereits Gewonnen!");
 				e.setCancelled(true);
 				return;
 			}
 		} else if(whoWin == 2) {
 			if(p.getName().equals(p1.getName())) {
+				// TODO: Nr.2
 				p1.sendMessage(ChatColor.AQUA + p2.getName() + ChatColor.WHITE + " hat das Spiel bereits Gewonnen!");
 				e.setCancelled(true);
 				return;
 			}
 		} else if(whoWin == 3) {
+			// TODO: Nr.2
 			p.sendMessage("Das Spiel war unentschieden!");
 			e.setCancelled(true);
 			return;
@@ -128,23 +130,23 @@ public class TickTackToeGame implements Listener{
 		
 		// Checks if the slot is valid and if so it's updated
 		
-		// TODO: Hier bischen zusammenfassen. Vorallem die unteren beiden Elemnte sind duplizierter code.
-		// TODO: Ich weis nicht wie ich das gut kürzen kann, weil das ja verschiedene Felder sind in denen die Items
-		// 		 drin sind und in jeweils andere wieder rein müssen
-		
 		if((gameInv.getItem(15).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
 			p.sendMessage();
 			e.setCancelled(true);
-			return;
+			return;CheckFor
+			// TODO: Nicht über Display-texte testen ob ein Item das gesuchte ist.
 		} else if(!gameInv.getItem(15).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.BLUE_WOOL, " "));
 			gameInv.setItem(15,createItem(Material.GRAY_DYE, Config.notYourTurnText));
+			// TODO: Nr.2
 			gameInv.setItem(16,createItem(Material.LIME_DYE, p2.getName() + " ist dran!"));
+			// TODO: Nicht über Display-texte testen ob ein Item das gesuchte ist.
 		} else if(!gameInv.getItem(16).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.RED_WOOL, " "));
 			gameInv.setItem(16,createItem(Material.GRAY_DYE, Config.notYourTurnText));
+			// TODO: Nr.2
 			gameInv.setItem(15,createItem(Material.LIME_DYE, p1.getName() + " ist dran!"));
 		}
 		
@@ -153,14 +155,17 @@ public class TickTackToeGame implements Listener{
 		whoWin = CheckForWin.checkForWin(gameInv, TTT_GRID_START_POS);
 		
 		if(whoWin == 1) {
+			// TODO: Nr.2 Wenn du alle Nachrichten in die Konfig auslagerst, mach das bitte mit jeder nachricht. Hier zur not irgendwie einen Platzhalter zb. %s für den/die Spielernamen mit String.format benutzen.
 			Bukkit.broadcastMessage("Der Spieler " + ChatColor.AQUA + p1.getName() + ChatColor.WHITE + " hat das TickTackToe Match gegen " + ChatColor.AQUA + p2.getName() + ChatColor.WHITE + " Gewonnen!");
 			spawnFireworks(p1);
 			return;
 		} else if(whoWin == 2) {
+			// TODO: Nr.2
 			Bukkit.broadcastMessage("Der Spieler " + ChatColor.AQUA + p2.getName() + ChatColor.WHITE + " hat das TickTackToe Match gegen " + ChatColor.AQUA + p1.getName() + ChatColor.WHITE + " Gewonnen!");
 			spawnFireworks(p2);
 			return;
 		} else if(whoWin == 3) {
+			// TODO: Nr.2
 			Bukkit.broadcastMessage("Das TickTackToe Match zwischen " + ChatColor.AQUA + p1.getName() + ChatColor.WHITE + " und " + ChatColor.AQUA + p2.getName() + ChatColor.WHITE + " endete unentschieden!");
 			return;
 		}
@@ -214,6 +219,7 @@ public class TickTackToeGame implements Listener{
 			
 			switch (i) {
 			case 15:
+				// TODO: Nr.2
 				gameInv.setItem(i,createItem(Material.LIME_DYE, p1.getName() + " ist dran!"));
 				continue;
 				

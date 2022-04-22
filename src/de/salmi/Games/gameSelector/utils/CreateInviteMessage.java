@@ -24,6 +24,7 @@ public class CreateInviteMessage {
 		decline.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/game decline ttt"));
 
 		// combines the other Textcomponents and Strings to the finished invite message
+		// TODO: Nr.2. Wobei man hier schauen muss, da die Klick & Hover-events ja mit eingebaut werden müssen.
 		TextComponent msg = new TextComponent("Der Spieler " + Bukkit.getPlayer(p.getUniqueId()).getName()
 				+ " hat Sie zu einem Match eingeladen!\n [");
 

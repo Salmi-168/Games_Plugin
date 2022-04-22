@@ -71,10 +71,8 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 			return true;
 		}
 
-		// Select game 0 (TickTackToe)
-		// TODO: Hier lieber mit Konstanten arbeiten, nicht mit Listen.
-		// TODO: wie ist das gemeint?^
-		if (args[0].equals(Config.gameList.get(0))) {
+		// Select game (TickTackToe)
+		if (args[0].equals(Config.TTT_Name)) {
 			// Here it is checked if he wants to play against himself
 			if (args[1].equals(p.getName())) {
 				p.sendMessage(ChatColor.RED + "Du kannst dich nicht selber Herausfordern!");
@@ -88,7 +86,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 				Player opp = Bukkit.getPlayer(args[1]);
 
 				// send Message as spigot message
-				// otherwise it doesn´t detect the TextComponents as clickable
+				// otherwise it doesnï¿½t detect the TextComponents as clickable
 				opp.spigot().sendMessage(CreateInviteMessage.createInviteMessage(p));
 				p.sendMessage("Du hast " + ChatColor.AQUA + Bukkit.getPlayer(opp.getUniqueId()).getName() + ChatColor.WHITE + " zu einem " + ChatColor.GOLD + Config.gameList.get(0) + ChatColor.WHITE + " Spiel Eingeladen!");
 
@@ -97,13 +95,13 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 
 				return true;
 			} else {
-				// if player isn´t online
+				// if player isnï¿½t online
 				p.sendMessage("Der Spieler ist nicht Online!");
 				return true;
 			}
 		}
 
-		p.sendMessage("§cDieses Spiel gibt es nicht!");
+		p.sendMessage("ï¿½cDieses Spiel gibt es nicht!");
 		return true;
 	}
 

@@ -4,15 +4,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 
+@SuppressWarnings("unused")
 public class ConnectFour implements Listener{
 
-	@SuppressWarnings("unused")
 	private Player p1;
-	@SuppressWarnings("unused")
 	private Player p2;
-	@SuppressWarnings("unused")
 	private Inventory gameInv;
-	@SuppressWarnings("unused")
 	private int whoWin;
 	
 	public ConnectFour(Player p1, Player p2) {

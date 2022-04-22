@@ -10,7 +10,7 @@ public class Config {
 
 	public static final String pluginName = ChatColor.GOLD + "Games" + ChatColor.DARK_GRAY + "> ";
 	
-	public static final String invalidInput = pluginName + ChatColor.RED + "Ungültige Eingabe -> /game <Gamemode> <Player>";
+	public static final String invalidInput = pluginName + ChatColor.RED + "Ungï¿½ltige Eingabe -> /game <Gamemode> <Player>";
 	
 	public static final String wrongEnvironmentMessage = pluginName + ChatColor.RED + "Du kannst diesen Befehl nur als Spieler ausfuehren!";
 	
@@ -41,14 +41,12 @@ public class Config {
 	
 	
 	
-/* --------- GameList --------- */
-	// TODO: Hier lieber mit Konstanten arbeiten
-	public static final List<String> gameList = new ArrayList<String>(Arrays.asList(
-			"TickTackToe"
-	));
-	
-	// TODO: Meinst du das ich lieber die Name der Games
-	// 	     einzeln schreiben soll?
-	public static final String TTT_Name = "TickTackToe";
-	
+	/* --------- GameList --------- */	
+		// Name of the game
+		public static final String TTT_Name = "TickTackToe";
+		
+		// List with all games
+		public static final List<String> gameList = List.of(
+			TTT_Name
+		);
 }
