@@ -1,4 +1,4 @@
-package de.salmi.Games.GameSelector.utils;
+package de.salmi.Games.gameSelector.utils;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -24,11 +24,11 @@ public class CreateInviteMessage {
 		decline.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/game decline ttt"));
 
 		// combines the other Textcomponents and Strings to the finished invite message
-		TextComponent msg = new TextComponent("Der Spieler " + Bukkit.getPlayer(p.getUniqueId()).getName()
-				+ " hat Sie zu einem Match eingeladen!\n [");
+		TextComponent msg = new TextComponent(Config.inviteMessage.replace("@p", Bukkit.getPlayer(p.getUniqueId()).getName()));
 
 		// both TextComponent Objects (accept, decline) must be added manually
 		// because otherwise it will paste the Object as pure String
+		msg.addExtra("\n [");
 		msg.addExtra(accept);
 		msg.addExtra("] [");
 		msg.addExtra(decline);

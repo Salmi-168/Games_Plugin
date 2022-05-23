@@ -1,4 +1,4 @@
-package de.salmi.Games.GameSelector;
+package de.salmi.Games.gameSelector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,19 +13,19 @@ import org.bukkit.entity.Player;
 
 import de.salmi.Games.Config;
 import de.salmi.Games.Main;
-import de.salmi.Games.GameSelector.utils.CreateInviteMessage;
 import de.salmi.Games.TickTackToe.TickTackToeGame;
+import de.salmi.Games.gameSelector.utils.CreateInviteMessage;
 
 public class GameSelector implements CommandExecutor, TabCompleter {
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
 		// TODO: Zu lange Methoden besser in kleine Untermethoden/Unterfunktionen
 		// aufteilen.
 
-		if (args.length == 0 || args.length >= 3) {
-			sender.sendMessage("");
+		if (args.length != 2) {
+			sender.sendMessage(Config.invalidInput);
 			return true;
 		}
 
@@ -51,17 +51,18 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 					}
 				}
 			}
-			
-			switch (args[1]) {
+
+			// Upper/lower case is ignored
+			switch (args[1].toLowerCase()) {
 			case "ttt":
-				
+
 				break;
 
 			default:
-				p.sendMessage("§cDieses Spiel gibt es nicht!");
+				p.sendMessage(ChatColor.RED + "Dieses Spiel gibt es nicht!");
 				return true;
 			}
-			
+
 			return true;
 		}
 
@@ -82,10 +83,8 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 			return true;
 		}
 
-		// Select game 0 (TickTackToe)
-		// TODO: Hier lieber mit Konstanten arbeiten, nicht mit Listen.
-		// TODO: wie ist das gemeint?^
-		if (args[0].equals(Config.gameList.get(0))) {
+		// Select game (TickTackToe)
+		if (args[0].equals(Config.TTT_Name)) {
 			// Here it is checked if he wants to play against himself
 			if (args[1].equals(p.getName())) {
 				p.sendMessage(ChatColor.RED + "Du kannst dich nicht selber Herausfordern!");
@@ -114,7 +113,8 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 			}
 		}
 
-		return false;
+		p.sendMessage(ChatColor.RED + "Dieses Spiel gibt es nicht!");
+		return true;
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 		if(args.length == 1) {
 			tabComplete.addAll(Config.gameList);
 		}
-		
+
 		// if game is selected add onlineplayers to tabComplete
 		if (args.length == 2) {
 			for (Player player : Bukkit.getOnlinePlayers()) {
@@ -135,10 +135,10 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 
 		return tabComplete;
 	}
-	
+
 	/**
 	 * compares from every player the name
-	 * 
+	 *
 	 * @return true if player is online
 	 * */
 	private boolean checkIfPlayerOnline(String name) {
