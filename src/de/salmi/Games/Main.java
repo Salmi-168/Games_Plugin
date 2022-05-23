@@ -15,15 +15,15 @@ public class Main extends JavaPlugin{
 	/**
 	   Folgendes sind immernoch einige weitere Anmerkungen:
 
- 		- Im InvClickevent würde ich die "Wer ist dran"-Logik dahingehen überarbeiten, dass du einen bool global in der Klasse einsetzt und nicht über ein Item im Inventar einen Namens-String-vergleich machst.
+ 		- Im InvClickevent w�rde ich die "Wer ist dran"-Logik dahingehen �berarbeiten, dass du einen bool global in der Klasse einsetzt und nicht über ein Item im Inventar einen Namens-String-vergleich machst.
 		  Ein Problem ist, dass ein Stringvergleich immer langsam ist und auch vom Programmieren her fehleranfällig ist (Verschrieben oder Rechtschreibfehler).
 		  Plus wenn man mehrere Sprache hat, kann das durchaus schwer werden.
 
-		- Aus Sauberkeitsgründen habe ich den "ItemStack[] inv" aus dem "Wer ist dran"-Vergleich auch rausgenommen, da das genau so einfach mit nur dem inventory geht.
+		- Aus Sauberkeitsgr�nden habe ich den "ItemStack[] inv" aus dem "Wer ist dran"-Vergleich auch rausgenommen, da das genau so einfach mit nur dem inventory geht.
 
 		- Packagenamen immer klein schreiben
 
-		Ich würde einige Methoden aus der TickTackToeGame-Klasse in eine eigene Utility-Klasse auslagern, damit die Klasse nicht zu groß und unübersichtlich wird.
+		Ich w�rde einige Methoden aus der TickTackToeGame-Klasse in eine eigene Utility-Klasse auslagern, damit die Klasse nicht zu groß und unübersichtlich wird.
 	 */
 
 	// USING spigot-api-1.18.2-R0.1-20220408.234706-30-shaded.jar
