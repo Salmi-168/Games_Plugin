@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
@@ -30,7 +29,9 @@ public class TickTackToeGame implements Listener{
 
 	// Inventory-start position for the ttt-grid
 	private final int TTT_GRID_START_POS = 10;
-	
+
+
+	// TODO: Kommentierung der unteren variablen: Was ist was? Speziell der Variable whoWin, weil diese nicht offensichtlich ist und hier als Flag genutzt wird. Was sagt welcher Wert aus?
 	private Player p1;
 	private Player p2;
 	
@@ -155,7 +156,8 @@ public class TickTackToeGame implements Listener{
 		if((gameInv.getItem(15).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
 			p.sendMessage(Config.notYourTurnMessage);
 			e.setCancelled(true);
-			return;
+			return;CheckFor
+			// TODO: Nicht über Display-texte testen ob ein Item das gesuchte ist.
 		} else if(!gameInv.getItem(15).getItemMeta().getDisplayName().equals(Config.notYourTurnText) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) {
 			e.setCancelled(true);
 			gameInv.setItem(e.getRawSlot(),createItem(Material.BLUE_WOOL, " "));
@@ -169,9 +171,6 @@ public class TickTackToeGame implements Listener{
 		}
 		
 		 * */
-		
-		
-		
 		
 		
 		// Updates the win-status

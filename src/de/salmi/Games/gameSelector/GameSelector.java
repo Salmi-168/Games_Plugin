@@ -51,7 +51,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 					}
 				}
 			}
-
+			
 			// Upper/lower case is ignored
 			switch (args[1].toLowerCase()) {
 			case "ttt":
@@ -98,7 +98,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 				Player opp = Bukkit.getPlayer(args[1]);
 
 				// send Message as spigot message
-				// otherwise it doesn´t detect the TextComponents as clickable
+				// otherwise it doesnï¿½t detect the TextComponents as clickable
 				opp.spigot().sendMessage(CreateInviteMessage.createInviteMessage(p));
 				p.sendMessage("Du hast " + ChatColor.AQUA + Bukkit.getPlayer(opp.getUniqueId()).getName() + ChatColor.WHITE + " zu einem " + ChatColor.GOLD + Config.gameList.get(0) + ChatColor.WHITE + " Spiel Eingeladen!");
 
@@ -107,7 +107,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 
 				return true;
 			} else {
-				// if player isn´t online
+				// if player isnï¿½t online
 				p.sendMessage("Der Spieler ist nicht Online!");
 				return true;
 			}
