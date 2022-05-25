@@ -133,7 +133,8 @@ public class TickTackToeGame implements Listener{
 		// TODO: Nicht über Display-texte testen ob ein Item das gesuchte ist.
 		// gucken wer dran ist wenn gecklickt wurde
 
-		if((gameInv.getItem(e.getRawSlot()).getType().equals(Material.GRAY_DYE) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(e.getRawSlot()).getType().equals(Material.LIME_DYE) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
+		// 
+		if((gameInv.getItem(15).getType().equals(Material.GRAY_DYE) && p.getName().equals(gameInv.getItem(24).getItemMeta().getDisplayName())) || (gameInv.getItem(16).getType().equals(Material.GRAY_DYE) && p.getName().equals(gameInv.getItem(25).getItemMeta().getDisplayName()))) {
 			p.sendMessage(Config.notYourTurnMessage);
 			e.setCancelled(true);
 			return;
@@ -182,7 +183,7 @@ public class TickTackToeGame implements Listener{
 			spawnFireworks(p1);
 			return;
 		} else if(whoWin == 2) {
-			Bukkit.broadcastMessage(Config.TTTPlayerTwoWinMessage.replace("@p1", p1.getName()).replace("@p1", p2.getName()));
+			Bukkit.broadcastMessage(Config.TTTPlayerTwoWinMessage.replace("@p1", p1.getName()).replace("@p2", p2.getName()));
 			spawnFireworks(p2);
 			return;
 		} else if(whoWin == 3) {

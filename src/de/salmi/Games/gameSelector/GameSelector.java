@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import de.salmi.Games.Config;
 import de.salmi.Games.Main;
+import de.salmi.Games.ConnectFour.ConnectFour;
 import de.salmi.Games.TickTackToe.TickTackToeGame;
 import de.salmi.Games.gameSelector.utils.CreateInviteMessage;
 
@@ -73,6 +74,14 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 				// goes through every game in the GameList and starts the
 				// first game where player two is in
 				for (TickTackToeGame game : Main.getTTTGameList()) {
+					if (p.getUniqueId().equals(game.getPlayer2().getUniqueId())) {
+						game.startGame();
+						return true;
+					}
+				}
+			} else if(args[1].equals("cf")) {// goes through every game in the GameList and starts the
+				// first game where player two is in
+				for (ConnectFour game : Main.getCFGameList()) {
 					if (p.getUniqueId().equals(game.getPlayer2().getUniqueId())) {
 						game.startGame();
 						return true;
