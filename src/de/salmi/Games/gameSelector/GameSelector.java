@@ -13,8 +13,8 @@ import org.bukkit.entity.Player;
 
 import de.salmi.Games.Config;
 import de.salmi.Games.Main;
-import de.salmi.Games.ConnectFour.ConnectFour;
-import de.salmi.Games.TickTackToe.TickTackToeGame;
+import de.salmi.Games.gameList.ConnectFour.ConnectFour;
+import de.salmi.Games.gameList.TickTackToe.TickTackToeGame;
 import de.salmi.Games.gameSelector.utils.CreateInviteMessage;
 
 public class GameSelector implements CommandExecutor, TabCompleter {
@@ -38,11 +38,16 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 
 		Player p = (Player) sender;
 
-		if (args[0].equals("decline")) {
+		if (args[0].toLowerCase().equals("decline")) {
 			// if player declines the match invite
-			if (args[1].equals("ttt")) {
+			
+			// Upper/lower case is ignored
+			switch (args[1].toLowerCase()) {
+			case "ttt":
 				// if it is TickTackToe related
 				List<TickTackToeGame> aGL = Main.getTTTGameList();
+
+				Main.getPlugin().getServer().getConsoleSender().sendMessage("Bevor: " + aGL.size() + " ");
 
 				// goes through every game in the GameList and clear
 				// only the games where player two is in to decline all TTT games
@@ -51,12 +56,12 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 						aGL.remove(i);
 					}
 				}
-			}
-			
-			// Upper/lower case is ignored
-			switch (args[1].toLowerCase()) {
-			case "ttt":
-
+				
+				Main.getPlugin().getServer().getConsoleSender().sendMessage("Nachher: " + aGL.size() + " ");
+				
+				break;
+				
+			case "":
 				break;
 
 			default:
@@ -70,7 +75,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 		// if player accepts the match invite
 		if (args[0].equals("accept")) {
 			// if it is TickTackToe related
-			if (args[1].equals("ttt")) {
+			if (args[1].toLowerCase().equals("ttt")) {
 				// goes through every game in the GameList and starts the
 				// first game where player two is in
 				for (TickTackToeGame game : Main.getTTTGameList()) {
@@ -79,7 +84,8 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 						return true;
 					}
 				}
-			} else if(args[1].equals("cf")) {// goes through every game in the GameList and starts the
+			} else if(args[1].equals("cf")) {
+				// goes through every game in the GameList and starts the
 				// first game where player two is in
 				for (ConnectFour game : Main.getCFGameList()) {
 					if (p.getUniqueId().equals(game.getPlayer2().getUniqueId())) {
@@ -107,7 +113,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 				Player opp = Bukkit.getPlayer(args[1]);
 
 				// send Message as spigot message
-				// otherwise it doesnï¿½t detect the TextComponents as clickable
+				// otherwise it doesn´t detect the TextComponents as clickable
 				opp.spigot().sendMessage(CreateInviteMessage.createInviteMessage(p));
 				p.sendMessage("Du hast " + ChatColor.AQUA + Bukkit.getPlayer(opp.getUniqueId()).getName() + ChatColor.WHITE + " zu einem " + ChatColor.GOLD + Config.gameList.get(0) + ChatColor.WHITE + " Spiel Eingeladen!");
 
@@ -116,7 +122,7 @@ public class GameSelector implements CommandExecutor, TabCompleter {
 
 				return true;
 			} else {
-				// if player isnï¿½t online
+				// if player isn´t online
 				p.sendMessage("Der Spieler ist nicht Online!");
 				return true;
 			}

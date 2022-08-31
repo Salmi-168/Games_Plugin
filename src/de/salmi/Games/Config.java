@@ -34,7 +34,7 @@ public class Config {
 		// Text on empty TTT_fields
 		public static final String TTT_fieldText = "Click me!";
 
-		// Invite message
+		// Invite messagetsurvi
 		public static final String inviteMessage = "Der Spieler @p hat Sie zu einem Match eingeladen!";
 		
 		// Invite message accept Text
@@ -58,8 +58,8 @@ public class Config {
 		// TTT player 2 winMessage
 		public static final String TTTPlayerTwoWinMessage = "Der Spieler " + ChatColor.AQUA + "@p2" + ChatColor.WHITE + " hat das TickTackToe Match gegen " + ChatColor.AQUA + "@p1" + ChatColor.WHITE + " gewonnen!";
 
-		// TTT player 2 winMessage
-		public static final String TTTNobodyWinsMessage = "Der Spieler " + ChatColor.AQUA + "@p2" + ChatColor.WHITE + " hat das TickTackToe Match gegen " + ChatColor.AQUA + "@p1" + ChatColor.WHITE + " gewonnen!";
+		// TTT no player winMessage
+		public static final String TTTNobodyWinsMessage = "Der Spieler " + ChatColor.AQUA + "@p1" + ChatColor.WHITE + " hat das TickTackToe Match gegen " + ChatColor.AQUA + "@p2" + ChatColor.WHITE + " unentschieden gespielt!";
 		
 		
 	
